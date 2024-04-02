@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button, Container, Grid, useMediaQuery, useTheme } from "@mui/material"
+import CustomCard from "./Components/ProductCard"
+import { productList } from "./data"
 
 function App() {
-  const [count, setCount] = useState(0)
+    const theme = useTheme(); // Access theme using useTheme hook
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm')); // Check if the screen size is small
+
+    const cardsData = productList.map(product => (
+        <Grid key={product.id} item xs={12} sm={6} md={6} lg={4} minHeight={"100px"} minWidth={"100px"}>
+          <CustomCard product={product} />
+        </Grid>
+      ));
+    
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Container >
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+      <Button variant="contained" color="error">Delete</Button>
+    </div>
+
+    <Grid
+      container
+      spacing={1}
+      justifyContent={isSmallScreen ? 'center' : 'flex-start'} // Center the content on small screens
+      alignItems="center"
+      style={{ minHeight: '20vh' }} // Adjusted minHeight for better visibility
+    >
+      {cardsData}
+    </Grid>
+  </Container>
   )
 }
 
