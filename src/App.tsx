@@ -36,6 +36,10 @@ function App() {
         ...product,
         [name]: value,
       });
+      setErrors({
+        ...errors,
+        [name]:""
+      })
     }
 
 
@@ -46,13 +50,20 @@ function App() {
       ));
 
       const renderFormInputList = formInputsList.map(input => (
-        <div key={input.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <label htmlFor={input.id}>
-            {input.label}
-          </label>
-          <Input type="text" id={input.id} name={input.name} value={product[input.name]} onChange={onChangehandler} />
-          <ErrorMessage msg={errors[input.name]} />
-        </div>
+      <div key={input.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <label htmlFor={input.id}>
+          {input.label}
+        </label>
+        <Input
+          type="text"
+          id={input.id}
+          name={input.name}
+          value={product[input.name]}
+          onChange={onChangehandler}
+          error={!!errors[input.name]} // Check if there is an error message for this field
+        />
+        <ErrorMessage msg={errors[input.name]} />
+      </div>
       ));
 
       const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
@@ -73,6 +84,8 @@ function App() {
           setErrors(errors);
           return;
         }
+
+        console.log("this product is sent")
         
       }
       const onCancle =()=>{
