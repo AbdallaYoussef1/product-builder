@@ -15,7 +15,9 @@ const CustomCard = ({product}:Iprops) => {
                         </Typography>
                         <Typography variant="body2" color="text.secondary" noWrap>
                         {product.description}
+                        
                         </Typography>
+                        {product.price}$
                     </CardContent>
                     <CardActions>
                         <Button variant="contained" color="primary" fullWidth>

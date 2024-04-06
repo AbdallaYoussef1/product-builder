@@ -1,7 +1,7 @@
 import { Button, Container, Grid, useMediaQuery, useTheme } from "@mui/material"
 import CustomCard from "./Components/ProductCard"
 import { formInputsList, productList } from "./data"
-
+import { v4 as uuid } from "uuid";
 import { ChangeEvent, FormEvent, useState } from "react";
 import CreateProduct from "./Components/CreateProduct";
 import Input from "./Components/ui/input";
@@ -25,9 +25,9 @@ function App() {
       }
     };
     const [product, setProduct]= useState <IProduct>(DefaultProductObject)
+    const [products, setProducts]= useState <IProduct[]>(productList)
     const [open, setOpen] = useState(false);
     const [errors, setErrors] = useState({ title: "", description: "", imageURL: "", price: "" });
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const onChangehandler = (event:ChangeEvent<HTMLInputElement>)=>{
@@ -43,7 +43,7 @@ function App() {
     }
 
 
-    const cardsData = productList.map(product => (
+    const cardsData = products.map(product => (
         <Grid key={product.id} item xs={12} sm={6} md={6} lg={4} minHeight={"100px"} minWidth={"100px"}>
           <CustomCard product={product} />
         </Grid>
@@ -84,9 +84,9 @@ function App() {
           setErrors(errors);
           return;
         }
-
-        console.log("this product is sent")
-        
+        setProducts(prev => [{...product, id: uuid()},...prev])
+        setProduct(DefaultProductObject)
+        handleClose()
       }
       const onCancle =()=>{
         setProduct(DefaultProductObject)
