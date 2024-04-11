@@ -22,7 +22,7 @@ const style = {
 };
 
 
-const CreateProduct=({open,handleClose,title,children}:Iprops) =>{
+const CreateProductModal=({open,handleClose,title,children}:Iprops) =>{
 
     return (
         <Modal
@@ -38,4 +38,4 @@ const CreateProduct=({open,handleClose,title,children}:Iprops) =>{
       </Modal>
     )
 }
-export default CreateProduct;
+export default CreateProductModal;

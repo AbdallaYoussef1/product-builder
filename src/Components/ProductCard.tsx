@@ -3,9 +3,16 @@ import { IProduct } from '../interfaces';
 import { titleSlicer } from '../utils/functions';
 interface Iprops{
 product:IProduct
+setProductToEdit: (product: IProduct) => void;
+openEditModal: () => void;
 }
 
-const CustomCard = ({product}:Iprops) => {
+const ProductCard = ({product, setProductToEdit, openEditModal}:Iprops) => {
+    const onEdit = () => {
+        setProductToEdit(product);
+        openEditModal();
+      };
+
     return (
         <Card variant="outlined" >
                     <CardMedia sx={{ height: 140 }} image={product.imageURL} title="Product Image" />
@@ -18,9 +25,10 @@ const CustomCard = ({product}:Iprops) => {
                         
                         </Typography>
                         {product.price}$
+                        {product.category.name}
                     </CardContent>
                     <CardActions>
-                        <Button variant="contained" color="primary" fullWidth>
+                        <Button variant="contained" color="primary" fullWidth onClick={onEdit}>
                         Edit
                         </Button>
                         <Button variant="contained" color="error" fullWidth>
@@ -31,4 +39,4 @@ const CustomCard = ({product}:Iprops) => {
     );
 }
 
-export default CustomCard;
+export default ProductCard;
