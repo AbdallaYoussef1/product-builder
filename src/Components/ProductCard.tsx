@@ -5,12 +5,15 @@ interface Iprops{
 product:IProduct
 setProductToEdit: (product: IProduct) => void;
 openEditModal: () => void;
+idx: number;
+setProductToEditIdx: (value: number) => void;
 }
 
-const ProductCard = ({product, setProductToEdit, openEditModal}:Iprops) => {
+const ProductCard = ({product, setProductToEdit, openEditModal,idx,setProductToEditIdx}:Iprops) => {
     const onEdit = () => {
         setProductToEdit(product);
         openEditModal();
+        setProductToEditIdx(idx)
       };
 
     return (

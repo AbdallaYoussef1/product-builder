@@ -36,9 +36,10 @@ function App() {
   const [products, setProducts] = useState<IProduct[]>(productList);
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   const [errors, setErrors] = useState({ title: "", description: "", imageURL: "", price: "" });
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-console.log(productToEdit)
+
   // Open modal handler
   const handleOpen = () => setOpen(true);
   // Close modal handler
@@ -64,7 +65,7 @@ console.log(productToEdit)
     });
   }
 
-  // Input change handler
+  // Input Edit change handler
   const onChangeEdithandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     // Update the product state with the new value
@@ -80,9 +81,9 @@ console.log(productToEdit)
   }
 
   // Generate card data for rendering
-  const cardsData = products.map(product => (
+  const cardsData = products.map((product,idx) => (
     <Grid key={product.id} item xs={12} sm={6} md={6} lg={4} minHeight={"100px"} minWidth={"100px"}>
-      <ProductCard product={product} setProductToEdit={setProductToEdit} openEditModal={handleOpenEdit}/>
+      <ProductCard product={product} setProductToEdit={setProductToEdit} openEditModal={handleOpenEdit} idx={idx} setProductToEditIdx={setProductToEditIdx}/>
     </Grid>
   ));
 
@@ -166,11 +167,13 @@ console.log(productToEdit)
     }
 
     // Add new product to the products list
-    
+    const updatedList = [...products]
+    updatedList[productToEditIdx] = productToEdit
+    setProducts(updatedList)
     // Reset product state to default
     setProductToEdit(DefaultProductObject);
     // Close the modal
-    handleClose();
+    handleCloseEdit();
   }
 
   // Cancel button click handler
