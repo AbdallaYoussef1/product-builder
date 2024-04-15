@@ -166,9 +166,6 @@ function App() {
     
     // Close the modal
     handleClose();
-
-    
-    
   }
 
  /* Edit submit handler */
